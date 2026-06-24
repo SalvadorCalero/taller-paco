@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\VehicleforSale; 
+use App\Models\VehicleforSale;
 use App\Models\Brand;
 use App\Models\CarModel;
 use Inertia\Inertia;
 use App\Models\ContactMessage;
+use App\Models\Appointment;
 
 class FrontController extends Controller
 {
@@ -107,10 +108,39 @@ class FrontController extends Controller
             'email' => $validated['email'],
             'phone' => $validated['phone'],
             'message' => $validated['message'],
-            'status' => 'Pendiente', 
+            'status' => 'Pendiente',
         ]);
 
         return back();
     }
 
+    /**
+     * Guarda la solicitud de cita previa desde la web pública
+     */
+    public function storeAppointment(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'reason' => 'required|string',
+            // Cambiamos a 'nullable' para que no falle si no es cita previa
+            'license_plate' => 'nullable|string|max:15',
+            'requested_date' => 'nullable|date|after:now',
+            'message' => 'nullable|string',
+        ]);
+
+        Appointment::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'reason' => $validated['reason'],
+            'license_plate' => $validated['license_plate'] ?? null, // Si no existe, pon null explícito
+            'requested_date' => $validated['requested_date'] ?? null, // <--- Esto es clave
+            'message' => $validated['message'] ?? null,
+            'status' => 'Pendiente',
+        ]);
+
+        return back();
+    }
 }

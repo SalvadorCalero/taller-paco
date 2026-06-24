@@ -68,6 +68,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Mensajes Web
                                 </NavLink>
+                                <NavLink
+                                    href={route("admin.appointments.index")}
+                                    active={route().current(
+                                        "admin.appointments.*",
+                                    )}
+                                >
+                                    Citas Taller
+                                </NavLink>
                             </div>
                         </div>
 
@@ -203,6 +211,12 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current("admin.messages.*")}
                         >
                             Mensajes Web
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("admin.appointments.index")}
+                            active={route().current("admin.appointments.*")}
+                        >
+                            Citas Taller
                         </ResponsiveNavLink>
                     </div>
 

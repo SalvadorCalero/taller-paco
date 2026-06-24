@@ -21,6 +21,7 @@ Route::get('/vehiculos', [FrontController::class, 'catalog'])->name('catalog');
 Route::get('/vehiculos/{id}', [FrontController::class, 'showCar'])->name('catalog.show');
 Route::post('/contacto/vehiculo', [FrontController::class, 'storeContact'])->name('public.contact.store');
 Route::get('/contacto', [FrontController::class, 'contact'])->name('contact');
+Route::post('/contacto/cita', [FrontController::class, 'storeAppointment'])->name('public.appointment.store');
 
 
 /*
@@ -37,6 +38,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
     // Gestión de Inventario
     Route::resource('vehicles-for-sale', VehicleForSaleController::class);
+    
 
     // Flujo del Taller
     Route::resource('clients', ClientController::class);
@@ -46,6 +48,12 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     // Gestión de Mensajes y Leads
     Route::get('/mensajes', [ContactMessageController::class, 'index'])->name('messages.index');
     Route::put('/mensajes/{id}/estado', [ContactMessageController::class, 'updateStatus'])->name('messages.update-status');
+
+    
+    // En web.php, dentro del grupo admin:
+Route::resource('appointments', App\Http\Controllers\BackOffice\AppointmentController::class)
+    ->names('appointments') // Esto fuerza el nombre admin.appointments.update
+    ->only(['index', 'update', 'destroy']);
 });
 
 
