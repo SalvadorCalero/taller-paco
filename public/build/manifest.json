@@ -1,0 +1,438 @@
+{
+  "_ApplicationLogo-20YcT-7N.js": {
+    "file": "assets/ApplicationLogo-20YcT-7N.js",
+    "name": "ApplicationLogo",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_AuthenticatedLayout-Bn7IyRZu.js": {
+    "file": "assets/AuthenticatedLayout-Bn7IyRZu.js",
+    "name": "AuthenticatedLayout",
+    "imports": [
+      "resources/js/app.jsx",
+      "_ApplicationLogo-20YcT-7N.js",
+      "_transition-C4qCtPhs.js"
+    ]
+  },
+  "_GuestLayout-DbbQt_dK.js": {
+    "file": "assets/GuestLayout-DbbQt_dK.js",
+    "name": "GuestLayout",
+    "imports": [
+      "resources/js/app.jsx",
+      "_ApplicationLogo-20YcT-7N.js"
+    ]
+  },
+  "_InputLabel-CbQgzMEB.js": {
+    "file": "assets/InputLabel-CbQgzMEB.js",
+    "name": "InputLabel",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_PrimaryButton-TcxKqqQG.js": {
+    "file": "assets/PrimaryButton-TcxKqqQG.js",
+    "name": "PrimaryButton",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_PublicLayout-Ba6dCRh2.js": {
+    "file": "assets/PublicLayout-Ba6dCRh2.js",
+    "name": "PublicLayout",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_TextInput-BNiMJLLG.js": {
+    "file": "assets/TextInput-BNiMJLLG.js",
+    "name": "TextInput",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_transition-C4qCtPhs.js": {
+    "file": "assets/transition-C4qCtPhs.js",
+    "name": "transition",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Auth/ConfirmPassword.jsx": {
+    "file": "assets/ConfirmPassword-DoUNr_SH.js",
+    "name": "ConfirmPassword",
+    "src": "resources/js/Pages/Auth/ConfirmPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BNiMJLLG.js",
+      "_InputLabel-CbQgzMEB.js",
+      "_PrimaryButton-TcxKqqQG.js",
+      "_GuestLayout-DbbQt_dK.js"
+    ]
+  },
+  "resources/js/Pages/Auth/ForgotPassword.jsx": {
+    "file": "assets/ForgotPassword-DZOy4Tux.js",
+    "name": "ForgotPassword",
+    "src": "resources/js/Pages/Auth/ForgotPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BNiMJLLG.js",
+      "_PrimaryButton-TcxKqqQG.js",
+      "_GuestLayout-DbbQt_dK.js"
+    ]
+  },
+  "resources/js/Pages/Auth/Login.jsx": {
+    "file": "assets/Login-BIKKBdE8.js",
+    "name": "Login",
+    "src": "resources/js/Pages/Auth/Login.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BNiMJLLG.js",
+      "_InputLabel-CbQgzMEB.js",
+      "_PrimaryButton-TcxKqqQG.js",
+      "_GuestLayout-DbbQt_dK.js"
+    ]
+  },
+  "resources/js/Pages/Auth/Register.jsx": {
+    "file": "assets/Register-CUxolqhZ.js",
+    "name": "Register",
+    "src": "resources/js/Pages/Auth/Register.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BNiMJLLG.js",
+      "_InputLabel-CbQgzMEB.js",
+      "_PrimaryButton-TcxKqqQG.js",
+      "_GuestLayout-DbbQt_dK.js"
+    ]
+  },
+  "resources/js/Pages/Auth/ResetPassword.jsx": {
+    "file": "assets/ResetPassword-C_Z-v6dw.js",
+    "name": "ResetPassword",
+    "src": "resources/js/Pages/Auth/ResetPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BNiMJLLG.js",
+      "_InputLabel-CbQgzMEB.js",
+      "_PrimaryButton-TcxKqqQG.js",
+      "_GuestLayout-DbbQt_dK.js"
+    ]
+  },
+  "resources/js/Pages/Auth/VerifyEmail.jsx": {
+    "file": "assets/VerifyEmail-C-to2Wdj.js",
+    "name": "VerifyEmail",
+    "src": "resources/js/Pages/Auth/VerifyEmail.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_PrimaryButton-TcxKqqQG.js",
+      "_GuestLayout-DbbQt_dK.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/Appointments/Index.jsx": {
+    "file": "assets/Index-BtqY-mj3.js",
+    "name": "Index",
+    "src": "resources/js/Pages/BackOffice/Appointments/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/ClientVehicles/Create.jsx": {
+    "file": "assets/Create-DOsC6a13.js",
+    "name": "Create",
+    "src": "resources/js/Pages/BackOffice/ClientVehicles/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/ClientVehicles/Edit.jsx": {
+    "file": "assets/Edit-B-9djeKG.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/BackOffice/ClientVehicles/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/ClientVehicles/Index.jsx": {
+    "file": "assets/Index-BAVEJ2B6.js",
+    "name": "Index",
+    "src": "resources/js/Pages/BackOffice/ClientVehicles/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/Clients/Create.jsx": {
+    "file": "assets/Create-D3WdFXXZ.js",
+    "name": "Create",
+    "src": "resources/js/Pages/BackOffice/Clients/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/Clients/Edit.jsx": {
+    "file": "assets/Edit-DBmm-rqy.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/BackOffice/Clients/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/Clients/Index.jsx": {
+    "file": "assets/Index-DPK0EDbm.js",
+    "name": "Index",
+    "src": "resources/js/Pages/BackOffice/Clients/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/Clients/Show.jsx": {
+    "file": "assets/Show-CooCOwD3.js",
+    "name": "Show",
+    "src": "resources/js/Pages/BackOffice/Clients/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/Messages/Index.jsx": {
+    "file": "assets/Index-D8sgUBwT.js",
+    "name": "Index",
+    "src": "resources/js/Pages/BackOffice/Messages/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/RepairOrders/Create.jsx": {
+    "file": "assets/Create-Bx2MNK0P.js",
+    "name": "Create",
+    "src": "resources/js/Pages/BackOffice/RepairOrders/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/RepairOrders/Edit.jsx": {
+    "file": "assets/Edit-BfPIsSDY.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/BackOffice/RepairOrders/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/RepairOrders/Index.jsx": {
+    "file": "assets/Index-C29T2dLS.js",
+    "name": "Index",
+    "src": "resources/js/Pages/BackOffice/RepairOrders/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/VehiclesForSale/Create.jsx": {
+    "file": "assets/Create-xHm1ypOC.js",
+    "name": "Create",
+    "src": "resources/js/Pages/BackOffice/VehiclesForSale/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/VehiclesForSale/Edit.jsx": {
+    "file": "assets/Edit-D_L035FY.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/BackOffice/VehiclesForSale/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/BackOffice/VehiclesForSale/Index.jsx": {
+    "file": "assets/Index-BPMzMD8y.js",
+    "name": "Index",
+    "src": "resources/js/Pages/BackOffice/VehiclesForSale/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/Dashboard.jsx": {
+    "file": "assets/Dashboard-BB7l2-Mq.js",
+    "name": "Dashboard",
+    "src": "resources/js/Pages/Dashboard.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js"
+    ]
+  },
+  "resources/js/Pages/FrontOffice/CarDetail.jsx": {
+    "file": "assets/CarDetail-BwA-7ykr.js",
+    "name": "CarDetail",
+    "src": "resources/js/Pages/FrontOffice/CarDetail.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_PublicLayout-Ba6dCRh2.js"
+    ]
+  },
+  "resources/js/Pages/FrontOffice/Catalog.jsx": {
+    "file": "assets/Catalog-DfvKFdzt.js",
+    "name": "Catalog",
+    "src": "resources/js/Pages/FrontOffice/Catalog.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_PublicLayout-Ba6dCRh2.js"
+    ]
+  },
+  "resources/js/Pages/FrontOffice/Contact.jsx": {
+    "file": "assets/Contact-CkztzmqF.js",
+    "name": "Contact",
+    "src": "resources/js/Pages/FrontOffice/Contact.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_PublicLayout-Ba6dCRh2.js"
+    ]
+  },
+  "resources/js/Pages/FrontOffice/Home.jsx": {
+    "file": "assets/Home-GeCAZ_Al.js",
+    "name": "Home",
+    "src": "resources/js/Pages/FrontOffice/Home.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_PublicLayout-Ba6dCRh2.js"
+    ]
+  },
+  "resources/js/Pages/Profile/Edit.jsx": {
+    "file": "assets/Edit-DvsQlsIs.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Profile/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-Bn7IyRZu.js",
+      "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
+      "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
+      "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx"
+    ]
+  },
+  "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx": {
+    "file": "assets/DeleteUserForm-Db4rLWOb.js",
+    "name": "DeleteUserForm",
+    "src": "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BNiMJLLG.js",
+      "_InputLabel-CbQgzMEB.js",
+      "_transition-C4qCtPhs.js"
+    ]
+  },
+  "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx": {
+    "file": "assets/UpdatePasswordForm-Dc1mMFkE.js",
+    "name": "UpdatePasswordForm",
+    "src": "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BNiMJLLG.js",
+      "_InputLabel-CbQgzMEB.js",
+      "_PrimaryButton-TcxKqqQG.js",
+      "_transition-C4qCtPhs.js"
+    ]
+  },
+  "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx": {
+    "file": "assets/UpdateProfileInformationForm-CyzRIoWS.js",
+    "name": "UpdateProfileInformationForm",
+    "src": "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_TextInput-BNiMJLLG.js",
+      "_InputLabel-CbQgzMEB.js",
+      "_PrimaryButton-TcxKqqQG.js",
+      "_transition-C4qCtPhs.js"
+    ]
+  },
+  "resources/js/Pages/Welcome.jsx": {
+    "file": "assets/Welcome-DVhK3hI7.js",
+    "name": "Welcome",
+    "src": "resources/js/Pages/Welcome.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/app.jsx": {
+    "file": "assets/app-BWDOQkR-.js",
+    "name": "app",
+    "src": "resources/js/app.jsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/Pages/Auth/ConfirmPassword.jsx",
+      "resources/js/Pages/Auth/ForgotPassword.jsx",
+      "resources/js/Pages/Auth/Login.jsx",
+      "resources/js/Pages/Auth/Register.jsx",
+      "resources/js/Pages/Auth/ResetPassword.jsx",
+      "resources/js/Pages/Auth/VerifyEmail.jsx",
+      "resources/js/Pages/BackOffice/Appointments/Index.jsx",
+      "resources/js/Pages/BackOffice/ClientVehicles/Create.jsx",
+      "resources/js/Pages/BackOffice/ClientVehicles/Edit.jsx",
+      "resources/js/Pages/BackOffice/ClientVehicles/Index.jsx",
+      "resources/js/Pages/BackOffice/Clients/Create.jsx",
+      "resources/js/Pages/BackOffice/Clients/Edit.jsx",
+      "resources/js/Pages/BackOffice/Clients/Index.jsx",
+      "resources/js/Pages/BackOffice/Clients/Show.jsx",
+      "resources/js/Pages/BackOffice/Messages/Index.jsx",
+      "resources/js/Pages/BackOffice/RepairOrders/Create.jsx",
+      "resources/js/Pages/BackOffice/RepairOrders/Edit.jsx",
+      "resources/js/Pages/BackOffice/RepairOrders/Index.jsx",
+      "resources/js/Pages/BackOffice/VehiclesForSale/Create.jsx",
+      "resources/js/Pages/BackOffice/VehiclesForSale/Edit.jsx",
+      "resources/js/Pages/BackOffice/VehiclesForSale/Index.jsx",
+      "resources/js/Pages/Dashboard.jsx",
+      "resources/js/Pages/FrontOffice/CarDetail.jsx",
+      "resources/js/Pages/FrontOffice/Catalog.jsx",
+      "resources/js/Pages/FrontOffice/Contact.jsx",
+      "resources/js/Pages/FrontOffice/Home.jsx",
+      "resources/js/Pages/Profile/Edit.jsx",
+      "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
+      "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
+      "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
+      "resources/js/Pages/Welcome.jsx"
+    ],
+    "css": [
+      "assets/app-BekIYQH9.css"
+    ]
+  }
+}
