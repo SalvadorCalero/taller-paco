@@ -5,6 +5,8 @@ use App\Http\Controllers\BackOffice\VehicleForSaleController;
 use App\Http\Controllers\BackOffice\ClientController;
 use App\Http\Controllers\BackOffice\ClientVehicleController;
 use App\Http\Controllers\BackOffice\RepairOrderController;
+use App\Http\Controllers\BackOffice\ContactMessageController;
+use App\Http\Controllers\FrontController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -14,14 +16,11 @@ use Inertia\Inertia;
 | FRONT-OFFICE (Parte Pública)
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [FrontController::class, 'home'])->name('home');
+Route::get('/vehiculos', [FrontController::class, 'catalog'])->name('catalog');
+Route::get('/vehiculos/{id}', [FrontController::class, 'showCar'])->name('catalog.show');
+Route::post('/contacto/vehiculo', [FrontController::class, 'storeContact'])->name('public.contact.store');
+Route::get('/contacto', [FrontController::class, 'contact'])->name('contact');
 
 
 /*
@@ -30,7 +29,7 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
-    
+
     // Dashboard principal
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
@@ -43,7 +42,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('clients', ClientController::class);
     Route::resource('client-vehicles', ClientVehicleController::class);
     Route::resource('repair-orders', RepairOrderController::class);
-    
+
+    // Gestión de Mensajes y Leads
+    Route::get('/mensajes', [ContactMessageController::class, 'index'])->name('messages.index');
+    Route::put('/mensajes/{id}/estado', [ContactMessageController::class, 'updateStatus'])->name('messages.update-status');
 });
 
 
@@ -58,11 +60,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
-
-/*
-|--------------------------------------------------------------------------
-| RUTA para las Ordenes de Reparación
-|--------------------------------------------------------------------------
-*/
-Route::resource('repair-orders', RepairOrderController::class);
+require __DIR__ . '/auth.php';

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Controllers\Controller;
-use App\Models\VehicleForSale;
+use App\Models\VehicleforSale;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\CarModel;
 use Illuminate\Support\Facades\Storage;
 
-class VehicleForSaleController extends Controller
+class VehicleforSaleController extends Controller
 {
     /**
      * Muestra el listado principal del inventario
@@ -17,7 +17,7 @@ class VehicleForSaleController extends Controller
     public function index()
     {
         // Traemos los vehículos paginados de 10 en 10, incluyendo la relación con el modelo y su marca
-        $vehicles = VehicleForSale::with('carModel.brand')->latest()->paginate(10);
+        $vehicles = VehicleforSale::with('carModel.brand')->latest()->paginate(10);
 
         // Renderizamos el componente de React y le pasamos los datos
         return Inertia::render('BackOffice/VehiclesForSale/Index', [
@@ -65,7 +65,7 @@ class VehicleForSaleController extends Controller
         }
 
         // 3. Insertamos el nuevo registro en la base de datos
-        VehicleForSale::create($validated);
+        VehicleforSale::create($validated);
 
         // 4. Redirigimos al índice
         return redirect()->route('admin.vehicles-for-sale.index');
@@ -79,7 +79,7 @@ class VehicleForSaleController extends Controller
     public function edit(string $id)
     {
         // Buscamos el coche o fallamos devolviendo un error 404
-        $vehicle = VehicleForSale::findOrFail($id);
+        $vehicle = VehicleforSale::findOrFail($id);
         $carModels = CarModel::with('brand')->get();
 
         return Inertia::render('BackOffice/VehiclesForSale/Edit', [
@@ -93,7 +93,7 @@ class VehicleForSaleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $vehicle = VehicleForSale::findOrFail($id);
+        $vehicle = VehicleforSale::findOrFail($id);
 
         $validated = $request->validate([
             'car_model_id' => 'required|exists:car_models,id',
@@ -128,7 +128,7 @@ class VehicleForSaleController extends Controller
      */
     public function destroy(string $id)
     {
-        $vehicle = VehicleForSale::findOrFail($id);
+        $vehicle = VehicleforSale::findOrFail($id);
 
         // Si el vehículo tenía foto, la borramos del servidor
         if ($vehicle->image_path) {

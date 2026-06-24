@@ -14,7 +14,18 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                // Añadimos Montserrat
+                montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans], 
             },
+            colors: {
+                // Paleta corporativa de TallerPaco
+                taller: {
+                    navy: '#1E3A8A',       // Azul Marino clásico
+                    anthracite: '#374151', // Gris oscuro / Antracita
+                    accent: '#EA580C',     // Naranja vibrante
+                    accentHover: '#C2410C' // Naranja oscuro para hover
+                }
+            }
         },
     },
 

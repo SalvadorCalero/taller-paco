@@ -62,6 +62,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Órdenes de Reparación
                                 </NavLink>
+                                <NavLink
+                                    href={route("admin.messages.index")}
+                                    active={route().current("admin.messages.*")}
+                                >
+                                    Mensajes Web
+                                </NavLink>
                             </div>
                         </div>
 
@@ -191,6 +197,12 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current("admin.repair-orders.*")}
                         >
                             Órdenes de Reparación
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("admin.messages.index")}
+                            active={route().current("admin.messages.*")}
+                        >
+                            Mensajes Web
                         </ResponsiveNavLink>
                     </div>
 
