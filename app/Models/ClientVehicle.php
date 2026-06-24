@@ -10,30 +10,23 @@ class ClientVehicle extends Model
     use HasFactory;
 
     protected $fillable = [
-        'client_id', 'car_model_id', 'license_plate', 'vin', 'color', 'year'
+        'client_id',
+        'car_model_id',
+        'license_plate',
+        'vin',
+        'color',
+        'year'
     ];
 
-    /**
-     * RELACIÓN: El vehículo PERTENECE A un Cliente
-     */
+    // Relación con el Cliente (Dueño)
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
 
-    /**
-     * RELACIÓN: El vehículo PERTENECE A un Modelo del catálogo
-     */
+    // Relación con el Modelo del Coche
     public function carModel()
     {
         return $this->belongsTo(CarModel::class);
-    }
-
-    /**
-     * RELACIÓN: Un vehículo del cliente puede tener MUCHAS órdenes de reparación (historial)
-     */
-    public function repairOrders()
-    {
-        return $this->hasMany(RepairOrder::class);
     }
 }

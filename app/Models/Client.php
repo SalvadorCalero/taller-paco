@@ -9,12 +9,20 @@ class Client extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['dni_nie', 'first_name', 'last_name', 'phone', 'email'];
+    // Damos permiso explícito para guardar estos campos masivamente
+    protected $fillable = [
+        'dni_nie',
+        'first_name',
+        'last_name',
+        'phone',
+        'email'
+    ];
 
     /**
      * RELACIÓN: Un Cliente TIENE MUCHOS Vehículos en el taller
+     * (El nombre clientVehicles es el que espera nuestro controlador y React)
      */
-    public function vehicles()
+    public function clientVehicles()
     {
         return $this->hasMany(ClientVehicle::class);
     }

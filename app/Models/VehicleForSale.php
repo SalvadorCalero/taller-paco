@@ -14,7 +14,8 @@ class VehicleForSale extends Model
 
     protected $fillable = [
         'car_model_id', 'condition', 'price', 'year', 
-        'mileage', 'fuel_type', 'description', 'status'
+        'mileage', 'fuel_type', 'description', 'status',
+        'image_path'
     ];
 
     /**
