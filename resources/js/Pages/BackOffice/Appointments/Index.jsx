@@ -2,29 +2,22 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 
 export default function Index({ appointments }) {
-    // 1. Inicializamos useForm con el campo status vacío
+    // Usamos el objeto form para manejar tanto patch como delete
     const form = useForm({
         status: "",
     });
 
     const updateStatus = (id, newStatus) => {
-        // 2. Asignamos el valor al campo status
         form.setData("status", newStatus);
-
-        // 3. Enviamos el formulario.
-        // Nota: Al usar form.patch, Inertia envía automáticamente los datos definidos en setData
         form.patch(route("admin.appointments.update", id), {
             preserveScroll: true,
-            onSuccess: () => console.log("¡Éxito!"),
-            onError: (err) => console.log("Error:", err),
         });
     };
 
-    // ... resto del código (mantén deleteAppointment igual)
-    // Función para eliminar una cita
+    // Función corregida: usando form.delete en lugar de una variable "destroy" inexistente
     const deleteAppointment = (id) => {
         if (confirm("¿Estás seguro de que quieres eliminar esta cita?")) {
-            destroy(route("admin.appointments.destroy", id), {
+            form.delete(route("admin.appointments.destroy", id), {
                 preserveScroll: true,
             });
         }
