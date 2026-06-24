@@ -29,4 +29,12 @@ class ClientVehicle extends Model
     {
         return $this->belongsTo(CarModel::class);
     }
+
+    /**
+     * RELACIÓN: Un Vehículo tiene MUCHAS Órdenes de Reparación
+     */
+    public function repairOrders()
+    {
+        return $this->hasMany(RepairOrder::class);
+    }
 }

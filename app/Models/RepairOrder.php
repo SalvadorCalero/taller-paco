@@ -10,8 +10,13 @@ class RepairOrder extends Model
     use HasFactory;
 
     protected $fillable = [
-        'client_vehicle_id', 'entry_date', 'exit_date', 'initial_diagnosis', 
-        'department', 'work_performed', 'status'
+        'client_vehicle_id',
+        'entry_date',
+        'exit_date',
+        'initial_diagnosis',
+        'department',
+        'work_performed',
+        'status'
     ];
 
     /**
@@ -21,7 +26,7 @@ class RepairOrder extends Model
      * También aseguramos que las fechas se traten como objetos Carbon (fechas de Laravel).
      */
     protected $casts = [
-        'department' => 'array',
+        'department' => 'array', // Convierte el JSON de MySQL a un Array de PHP/React
         'entry_date' => 'datetime',
         'exit_date' => 'datetime',
     ];

@@ -59,3 +59,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+/*
+|--------------------------------------------------------------------------
+| RUTA para las Ordenes de Reparación
+|--------------------------------------------------------------------------
+*/
+Route::resource('repair-orders', RepairOrderController::class);

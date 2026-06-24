@@ -54,6 +54,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Vehículos Taller
                                 </NavLink>
+                                <NavLink
+                                    href={route("admin.repair-orders.index")}
+                                    active={route().current(
+                                        "admin.repair-orders.*",
+                                    )}
+                                >
+                                    Órdenes de Reparación
+                                </NavLink>
                             </div>
                         </div>
 
@@ -177,6 +185,12 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current("admin.client-vehicles.*")}
                         >
                             Vehículos Taller
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("admin.repair-orders.index")}
+                            active={route().current("admin.repair-orders.*")}
+                        >
+                            Órdenes de Reparación
                         </ResponsiveNavLink>
                     </div>
 
