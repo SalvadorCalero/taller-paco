@@ -69,3 +69,13 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+// Estas líneas es para poder acceder a las imágenes en el servidor
+// En routes/web.php
+Route::get('/storage/{path}', function ($path) {
+    $fullPath = storage_path('app/public/' . $path);
+    if (!\Illuminate\Support\Facades\File::exists($fullPath)) {
+        abort(404);
+    }
+    return \Illuminate\Support\Facades\Response::file($fullPath);
+})->where('path', '.*');
