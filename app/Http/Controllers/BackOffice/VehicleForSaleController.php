@@ -12,29 +12,29 @@ use Illuminate\Support\Facades\Storage;
 class VehicleforSaleController extends Controller
 {
     /**
-     * Muestra el listado principal del inventario con filtros.
+     * Muestra el listado principal del inventario con filtros de texto simples.
      */
     public function index(Request $request)
-{
-    $query = VehicleforSale::with('carModel.brand');
+    {
+        $query = VehicleforSale::with('carModel.brand');
 
-    // Filtros de selección exacta
-    $query->when($request->condition, fn($q, $v) => $q->where('condition', $v))
-          ->when($request->fuel_type, fn($q, $v) => $q->where('fuel_type', $v))
-          ->when($request->status, fn($q, $v) => $q->where('status', $v));
+        // Filtros exactos
+        $query->when($request->condition, fn($q, $v) => $q->where('condition', $v))
+              ->when($request->fuel_type, fn($q, $v) => $q->where('fuel_type', $v))
+              ->when($request->status, fn($q, $v) => $q->where('status', $v));
 
-    // Filtros de Rango (Min/Max)
-    $query->when($request->year_min, fn($q, $v) => $q->where('year', '>=', $v))
-          ->when($request->year_max, fn($q, $v) => $q->where('year', '<=', $v))
-          ->when($request->price_min, fn($q, $v) => $q->where('price', '>=', $v))
-          ->when($request->price_max, fn($q, $v) => $q->where('price', '<=', $v))
-          ->when($request->mileage_min, fn($q, $v) => $q->where('mileage', '>=', $v))
-          ->when($request->mileage_max, fn($q, $v) => $q->where('mileage', '<=', $v));
+        // Filtros de Rango
+        $query->when($request->price_min, fn($q, $v) => $q->where('price', '>=', $v))
+              ->when($request->price_max, fn($q, $v) => $q->where('price', '<=', $v))
+              ->when($request->year_min, fn($q, $v) => $q->where('year', '>=', $v))
+              ->when($request->year_max, fn($q, $v) => $q->where('year', '<=', $v))
+              ->when($request->mileage_min, fn($q, $v) => $q->where('mileage', '>=', $v))
+              ->when($request->mileage_max, fn($q, $v) => $q->where('mileage', '<=', $v));
 
-    return Inertia::render('BackOffice/VehiclesForSale/Index', [
-        'vehicles' => $query->latest()->paginate(10)->withQueryString()
-    ]);
-}
+        return Inertia::render('BackOffice/VehiclesForSale/Index', [
+            'vehicles' => $query->latest()->paginate(10)->withQueryString()
+        ]);
+    }
 
     public function create()
     {
