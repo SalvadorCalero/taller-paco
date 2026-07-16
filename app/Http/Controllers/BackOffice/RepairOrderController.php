@@ -13,17 +13,35 @@ class RepairOrderController extends Controller
     /**
      * Listado general de órdenes del taller.
      */
-    public function index()
-    {
-        // Traemos las órdenes junto con los datos del coche, el modelo y el cliente
-        $orders = RepairOrder::with(['clientVehicle.carModel', 'clientVehicle.client'])
-            ->latest()
-            ->paginate(15);
+    public function index(Request $request)
+{
+    // Obtener todos los departamentos únicos de la tabla para el desplegable
+    // Esto hace un "flatten" del JSON para obtener valores únicos
+    $allDepartments = RepairOrder::query()
+        ->select('department')
+        ->get()
+        ->pluck('department')
+        ->flatten()
+        ->unique()
+        ->sort()
+        ->values();
 
-        return Inertia::render('BackOffice/RepairOrders/Index', [
-            'orders' => $orders
-        ]);
-    }
+    $query = RepairOrder::with(['clientVehicle.carModel', 'clientVehicle.client']);
+
+    // ... (tus filtros existentes)
+    $query->when($request->status, fn($q, $v) => $q->where('status', $v))
+          ->when($request->license_plate, fn($q, $v) => $q->whereHas('clientVehicle', fn($q) => $q->where('license_plate', 'like', "%{$v}%")))
+          ->when($request->client_name, fn($q, $v) => $q->whereHas('clientVehicle.client', fn($q) => $q->where('first_name', 'like', "%{$v}%")->orWhere('last_name', 'like', "%{$v}%")))
+          ->when($request->department, fn($q, $v) => $q->whereJsonContains('department', $v))
+          ->when($request->entry_date_start, fn($q, $v) => $q->whereDate('entry_date', '>=', $v))
+          ->when($request->entry_date_end, fn($q, $v) => $q->whereDate('entry_date', '<=', $v));
+
+    return Inertia::render('BackOffice/RepairOrders/Index', [
+        'orders' => $query->latest()->paginate(15)->withQueryString(),
+        'filters' => $request->only(['status', 'license_plate', 'client_name', 'department', 'entry_date_start', 'entry_date_end']),
+        'availableDepartments' => $allDepartments // Pasamos la lista dinámica a la vista
+    ]);
+}
 
     /**
      * Muestra el formulario para abrir una nueva orden de reparación.

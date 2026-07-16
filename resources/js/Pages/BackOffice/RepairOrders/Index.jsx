@@ -1,21 +1,16 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
+import RepairOrderFilterBar from "@/Components/RepairOrderFilterBar";
 
-export default function Index({ auth, orders }) {
+export default function Index({ auth, orders, filters, availableDepartments }) {
 
-    // Función para dar un color visual a cada estado del ENUM
     const getStatusBadgeClass = (status) => {
         switch (status) {
-            case "Pendiente":
-                return "bg-amber-100 text-amber-800 border-amber-300";
-            case "En Proceso":
-                return "bg-blue-100 text-blue-800 border-blue-300";
-            case "Listo para Entrega":
-                return "bg-green-100 text-green-800 border-green-300";
-            case "Entregado":
-                return "bg-gray-100 text-gray-600 border-gray-300";
-            default:
-                return "bg-gray-100 text-gray-800 border-gray-300";
+            case "Pendiente": return "bg-amber-100 text-amber-800 border-amber-300";
+            case "En Proceso": return "bg-blue-100 text-blue-800 border-blue-300";
+            case "Listo para Entrega": return "bg-green-100 text-green-800 border-green-300";
+            case "Entregado": return "bg-gray-100 text-gray-600 border-gray-300";
+            default: return "bg-gray-100 text-gray-800 border-gray-300";
         }
     };
 
@@ -23,6 +18,14 @@ export default function Index({ auth, orders }) {
         if (confirm("¿Seguro que deseas eliminar esta orden de reparación? Esta acción no se puede deshacer.")) {
             router.delete(route("admin.repair-orders.destroy", id));
         }
+    };
+
+    const handleFilterChange = (newFilters) => {
+        router.get(route('admin.repair-orders.index'), newFilters, {
+            preserveState: true,
+            preserveScroll: true,
+            replace: true,
+        });
     };
 
     return (
@@ -33,7 +36,7 @@ export default function Index({ auth, orders }) {
             <Head title="Órdenes del Taller" />
 
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-[95%] mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
 
@@ -46,6 +49,13 @@ export default function Index({ auth, orders }) {
                                     + Abrir Nueva Orden
                                 </Link>
                             </div>
+
+                            {/* Filtros con desplegable dinámico */}
+                            <RepairOrderFilterBar 
+                                onFilterChange={handleFilterChange} 
+                                currentFilters={filters || {}}
+                                availableDepartments={availableDepartments}
+                            />
 
                             <div className="overflow-x-auto">
                                 <table className="min-w-full text-left text-sm whitespace-nowrap">
@@ -63,14 +73,12 @@ export default function Index({ auth, orders }) {
                                         {orders.data.map((order) => (
                                             <tr key={order.id} className="border-b border-gray-200 hover:bg-gray-50 transition">
                                                 
-                                                {/* Estado (Badge de color dinámico) */}
                                                 <td className="px-6 py-4">
                                                     <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getStatusBadgeClass(order.status)}`}>
                                                         {order.status}
                                                     </span>
                                                 </td>
 
-                                                {/* Vehículo asociado */}
                                                 <td className="px-6 py-4">
                                                     <span className="bg-gray-100 text-gray-800 font-mono font-bold px-2 py-0.5 border border-gray-400 rounded text-xs uppercase tracking-wider mr-2">
                                                         {order.client_vehicle.license_plate}
@@ -80,7 +88,6 @@ export default function Index({ auth, orders }) {
                                                     </span>
                                                 </td>
 
-                                                {/* Cliente */}
                                                 <td className="px-6 py-4">
                                                     <div className="font-medium text-gray-900">
                                                         {order.client_vehicle.client.first_name} {order.client_vehicle.client.last_name}
@@ -88,7 +95,6 @@ export default function Index({ auth, orders }) {
                                                     <div className="text-xs text-gray-400 font-mono">{order.client_vehicle.client.phone}</div>
                                                 </td>
 
-                                                {/* Departamentos (Mapeo del array JSON de MySQL) */}
                                                 <td className="px-6 py-4">
                                                     <div className="flex flex-wrap gap-1">
                                                         {order.department && order.department.map((dep, i) => (
@@ -99,18 +105,10 @@ export default function Index({ auth, orders }) {
                                                     </div>
                                                 </td>
 
-                                                {/* Fecha de entrada formateada */}
                                                 <td className="px-6 py-4 text-gray-600 font-mono text-xs">
-                                                    {new Date(order.entry_date).toLocaleString('es-ES', {
-                                                        day: '2-digit',
-                                                        month: '2-digit',
-                                                        year: 'numeric',
-                                                        hour: '2-digit',
-                                                        minute: '2-digit'
-                                                    })}
+                                                    {new Date(order.entry_date).toLocaleDateString('es-ES')}
                                                 </td>
 
-                                                {/* Acciones del CRUD */}
                                                 <td className="px-6 py-4">
                                                     <Link href={route("admin.repair-orders.edit", order.id)} className="text-blue-600 hover:underline font-semibold mr-3">
                                                         Gestionar / Editar
@@ -125,7 +123,7 @@ export default function Index({ auth, orders }) {
                                         {orders.data.length === 0 && (
                                             <tr>
                                                 <td colSpan="6" className="text-center py-10 bg-gray-50 text-gray-500 italic">
-                                                    No hay ninguna orden de reparación abierta en este momento.
+                                                    No hay órdenes encontradas con los filtros aplicados.
                                                 </td>
                                             </tr>
                                         )}
