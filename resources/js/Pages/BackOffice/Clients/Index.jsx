@@ -36,22 +36,24 @@ export default function Index({ auth, clients, filters }) {
                             <table className="min-w-full text-left text-sm whitespace-nowrap">
                                 <thead className="uppercase tracking-wider border-b-2 border-gray-600 bg-gray-50">
                                     <tr>
-                                        <th className="px-6 py-4">Nombre y Contacto</th>
+                                        <th className="px-6 py-4">Nombre</th>
+                                        <th className="px-6 py-4">Apellidos</th>
                                         <th className="px-6 py-4">DNI / NIE</th>
+                                        <th className="px-6 py-4">Teléfono</th>
+                                        <th className="px-6 py-4">Email</th>
                                         <th className="px-6 py-4">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {clients.data.map((client) => (
                                         <tr key={client.id} className="border-b border-gray-200 hover:bg-gray-100">
+                                            <td className="px-6 py-4 font-bold text-gray-800">{client.first_name}</td>
+                                            <td className="px-6 py-4">{client.last_name}</td>
+                                            <td className="px-6 py-4 font-mono">{client.dni_nie}</td>
+                                            <td className="px-6 py-4 font-mono">{client.phone}</td>
+                                            <td className="px-6 py-4">{client.email}</td>
                                             <td className="px-6 py-4">
-                                                <div className="font-bold text-gray-800 text-base">{client.first_name} {client.last_name}</div>
-                                                <div className="text-gray-500">{client.email}</div>
-                                                <div className="text-gray-500 font-mono text-xs mt-1">{client.phone}</div>
-                                            </td>
-                                            <td className="px-6 py-4 text-gray-600 font-mono">{client.dni_nie}</td>
-                                            <td className="px-6 py-4">
-                                                <Link href={route("admin.clients.show", client.id)} className="text-green-600 font-bold hover:underline mr-4">Ver Ficha</Link>
+                                                <Link href={route("admin.clients.show", client.id)} className="text-green-600 font-bold hover:underline mr-4">Ver</Link>
                                                 <Link href={route("admin.clients.edit", client.id)} className="text-blue-600 hover:underline mr-3">Editar</Link>
                                                 <button onClick={() => handleDelete(client.id)} className="text-red-600 hover:underline">Eliminar</button>
                                             </td>
