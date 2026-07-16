@@ -12,89 +12,38 @@ use Illuminate\Support\Facades\Storage;
 class VehicleforSaleController extends Controller
 {
     /**
-     * Muestra el listado principal del inventario
+     * Muestra el listado principal del inventario con filtros.
      */
-    public function index()
-    {
-        // Traemos los vehículos paginados de 10 en 10, incluyendo la relación con el modelo y su marca
-        $vehicles = VehicleforSale::with('carModel.brand')->latest()->paginate(10);
+    public function index(Request $request)
+{
+    $query = VehicleforSale::with('carModel.brand');
 
-        // Renderizamos el componente de React y le pasamos los datos
-        return Inertia::render('BackOffice/VehiclesForSale/Index', [
-            'vehicles' => $vehicles
-        ]);
-    }
+    // Filtros de selección exacta
+    $query->when($request->condition, fn($q, $v) => $q->where('condition', $v))
+          ->when($request->fuel_type, fn($q, $v) => $q->where('fuel_type', $v))
+          ->when($request->status, fn($q, $v) => $q->where('status', $v));
 
-    /**
-     * Muestra el formulario para crear un nuevo vehículo.
-     */
+    // Filtros de Rango (Min/Max)
+    $query->when($request->year_min, fn($q, $v) => $q->where('year', '>=', $v))
+          ->when($request->year_max, fn($q, $v) => $q->where('year', '<=', $v))
+          ->when($request->price_min, fn($q, $v) => $q->where('price', '>=', $v))
+          ->when($request->price_max, fn($q, $v) => $q->where('price', '<=', $v))
+          ->when($request->mileage_min, fn($q, $v) => $q->where('mileage', '>=', $v))
+          ->when($request->mileage_max, fn($q, $v) => $q->where('mileage', '<=', $v));
+
+    return Inertia::render('BackOffice/VehiclesForSale/Index', [
+        'vehicles' => $query->latest()->paginate(10)->withQueryString()
+    ]);
+}
+
     public function create()
     {
-        // Necesitamos pasar todos los modelos (y sus marcas) a la vista 
-        // para rellenar el campo <select> del formulario.
         $carModels = CarModel::with('brand')->get();
-
-        return Inertia::render('BackOffice/VehiclesForSale/Create', [
-            'carModels' => $carModels
-        ]);
+        return Inertia::render('BackOffice/VehiclesForSale/Create', ['carModels' => $carModels]);
     }
 
-    /**
-     * Recibe los datos del formulario, los valida y guarda el vehículo en la BD.
-     */
     public function store(Request $request)
     {
-        // 1. Validamos los datos, añadiendo la validación de la imagen
-        $validated = $request->validate([
-            'car_model_id' => 'required|exists:car_models,id',
-            'condition' => 'required|in:Nuevo,SegundaMano',
-            'price' => 'required|numeric|min:0',
-            'year' => 'required|integer|min:1950|max:' . (date('Y') + 1),
-            'mileage' => 'required|integer|min:0',
-            'fuel_type' => 'required|in:Gasolina,Diésel,Híbrido,Eléctrico',
-            'description' => 'nullable|string',
-            'status' => 'required|in:Disponible,Reservado,Vendido',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // Max 2MB, formatos web
-        ]);
-
-        // 2. Comprobamos si el usuario ha subido una imagen
-        if ($request->hasFile('image')) {
-            // Guardamos la imagen en storage/app/public/vehicles
-            // y guardamos la ruta resultante en el array de datos validados
-            $validated['image_path'] = $request->file('image')->store('vehicles', 'public');
-        }
-
-        // 3. Insertamos el nuevo registro en la base de datos
-        VehicleforSale::create($validated);
-
-        // 4. Redirigimos al índice
-        return redirect()->route('admin.vehicles-for-sale.index');
-    }
-
-
-
-    /**
-     * Muestra el formulario para editar un vehículo existente.
-     */
-    public function edit(string $id)
-    {
-        // Buscamos el coche o fallamos devolviendo un error 404
-        $vehicle = VehicleforSale::findOrFail($id);
-        $carModels = CarModel::with('brand')->get();
-
-        return Inertia::render('BackOffice/VehiclesForSale/Edit', [
-            'vehicle' => $vehicle,
-            'carModels' => $carModels
-        ]);
-    }
-
-    /**
-     * Valida y actualiza los datos del vehículo en la BD.
-     */
-    public function update(Request $request, string $id)
-    {
-        $vehicle = VehicleforSale::findOrFail($id);
-
         $validated = $request->validate([
             'car_model_id' => 'required|exists:car_models,id',
             'condition' => 'required|in:Nuevo,SegundaMano',
@@ -107,37 +56,50 @@ class VehicleforSaleController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        // Si el usuario sube una nueva imagen...
         if ($request->hasFile('image')) {
-            // 1. Borramos la imagen antigua del disco duro (si existía) para ahorrar espacio
-            if ($vehicle->image_path) {
-                Storage::disk('public')->delete($vehicle->image_path);
-            }
-            // 2. Guardamos la nueva imagen y actualizamos la ruta
             $validated['image_path'] = $request->file('image')->store('vehicles', 'public');
         }
 
-        // Actualizamos el registro en la base de datos
-        $vehicle->update($validated);
-
+        VehicleforSale::create($validated);
         return redirect()->route('admin.vehicles-for-sale.index');
     }
 
-    /**
-     * Elimina un vehículo y su imagen asociada.
-     */
+    public function edit(string $id)
+    {
+        $vehicle = VehicleforSale::findOrFail($id);
+        $carModels = CarModel::with('brand')->get();
+        return Inertia::render('BackOffice/VehiclesForSale/Edit', ['vehicle' => $vehicle, 'carModels' => $carModels]);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $vehicle = VehicleforSale::findOrFail($id);
+        $validated = $request->validate([
+            'car_model_id' => 'required|exists:car_models,id',
+            'condition' => 'required|in:Nuevo,SegundaMano',
+            'price' => 'required|numeric|min:0',
+            'year' => 'required|integer|min:1950|max:' . (date('Y') + 1),
+            'mileage' => 'required|integer|min:0',
+            'fuel_type' => 'required|in:Gasolina,Diésel,Híbrido,Eléctrico',
+            'description' => 'nullable|string',
+            'status' => 'required|in:Disponible,Reservado,Vendido',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            if ($vehicle->image_path) Storage::disk('public')->delete($vehicle->image_path);
+            $validated['image_path'] = $request->file('image')->store('vehicles', 'public');
+        }
+
+        $vehicle->update($validated);
+        return redirect()->route('admin.vehicles-for-sale.index');
+    }
+
     public function destroy(string $id)
     {
         $vehicle = VehicleforSale::findOrFail($id);
-
-        // Si el vehículo tenía foto, la borramos del servidor
-        if ($vehicle->image_path) {
-            Storage::disk('public')->delete($vehicle->image_path);
-        }
-
-        // Borramos el registro de la base de datos
+        if ($vehicle->image_path) Storage::disk('public')->delete($vehicle->image_path);
         $vehicle->delete();
-
         return redirect()->route('admin.vehicles-for-sale.index');
     }
 }

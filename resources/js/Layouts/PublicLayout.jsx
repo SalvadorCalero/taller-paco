@@ -102,7 +102,7 @@ export default function PublicLayout({ children }) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
                         <h3 className="font-montserrat font-bold text-xl text-white mb-4">TALLER PACO</h3>
-                        <p className="text-sm">Especialistas en reparación multimarcas y venta de vehículos de ocasión revisados y garantizados.</p>
+                        <p className="text-sm">Esta web esta diseñada a modo de muestra, no es una web operativa, los modelos, precios, características de los productos mostrados son ficticios y cualquier parecido a la realidad es pura casualidad. Las imágenes mostrada pernenecen a sus dueños. Si necesita información sobre la web, los datos de contacto son reales.</p>
                     </div>
                     <div>
                         <h3 className="font-montserrat font-bold text-lg text-white mb-4">Horario</h3>
@@ -115,14 +115,14 @@ export default function PublicLayout({ children }) {
                     <div>
                         <h3 className="font-montserrat font-bold text-lg text-white mb-4">Contacto</h3>
                         <ul className="text-sm space-y-2">
-                            <li>Teléfono: +34 900 123 456</li>
-                            <li>Email: info@tallerpaco.com</li>
-                            <li>Dirección: Polígono Industrial, Nave 4</li>
+                            <li>Teléfono: +34 627 934 010</li>
+                            <li>Email: info@caleroestudio.com</li>
+                            <li>Dirección: Polígono Industrial, Nave Pi</li>
                         </ul>
                     </div>
                 </div>
                 <div className="text-center text-xs text-gray-500 mt-8 border-t border-gray-600 pt-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    &copy; {new Date().getFullYear()} Taller Paco. Todos los derechos reservados.
+                    &copy; {new Date().getFullYear()} Taller Paco. Todos los derechos reservados. | Construido por: <a href="https://www.caleroestudio.com" target="_blank" class="text-white">www.caleroestudio.com</a> 
                 </div>
             </footer>
 
