@@ -10,19 +10,20 @@ use Inertia\Inertia;
 class ClientController extends Controller
 {
     public function index(Request $request)
-    {
-        $query = Client::query();
+{
+    $query = Client::query();
 
-        // Filtro simple original que no causaba problemas
-        if ($request->name_search) {
-            $query->where('first_name', 'like', "%{$request->name_search}%")
-                  ->orWhere('last_name', 'like', "%{$request->name_search}%");
-        }
+    $query->when($request->dni_nie, fn($q, $v) => $q->where('dni_nie', 'like', "%{$v}%"))
+          ->when($request->first_name, fn($q, $v) => $q->where('first_name', 'like', "%{$v}%"))
+          ->when($request->last_name, fn($q, $v) => $q->where('last_name', 'like', "%{$v}%"))
+          ->when($request->phone, fn($q, $v) => $q->where('phone', 'like', "%{$v}%"))
+          ->when($request->email, fn($q, $v) => $q->where('email', 'like', "%{$v}%"));
 
-        return Inertia::render('BackOffice/Clients/Index', [
-            'clients' => $query->latest()->paginate(10)
-        ]);
-    }
+    return Inertia::render('BackOffice/Clients/Index', [
+        'clients' => $query->latest()->paginate(10)->withQueryString(),
+        'filters' => $request->only(['dni_nie', 'first_name', 'last_name', 'phone', 'email'])
+    ]);
+}
 
     public function create() { return Inertia::render('BackOffice/Clients/Create'); }
 
