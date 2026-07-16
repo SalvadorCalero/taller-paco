@@ -26,6 +26,7 @@ export default function Index({ auth, vehicles }) {
                         <table className="min-w-full text-left text-sm">
                             <thead className="bg-gray-50 border-b">
                                 <tr>
+                                    <th className="px-6 py-4">Imagen</th>
                                     <th className="px-6 py-4">Vehículo</th>
                                     <th className="px-6 py-4">Condición</th>
                                     <th className="px-6 py-4">Año</th>
@@ -38,6 +39,19 @@ export default function Index({ auth, vehicles }) {
                             <tbody>
                                 {vehicles.data.map((v) => (
                                     <tr key={v.id} className="border-b hover:bg-gray-50">
+                                        <td className="p-4">
+                                            {v.image_path ? (
+                                                <img 
+                                                    src={`/storage/${v.image_path}`} 
+                                                    alt="Vehículo" 
+                                                    className="w-20 h-16 object-cover rounded shadow-sm"
+                                                />
+                                            ) : (
+                                                <div className="w-20 h-16 bg-gray-100 rounded flex items-center justify-center text-[10px] text-gray-400">
+                                                    Sin foto
+                                                </div>
+                                            )}
+                                        </td>
                                         <td className="p-4 font-bold">{v.car_model?.brand?.name} {v.car_model?.name}</td>
                                         <td className="p-4">{v.condition}</td>
                                         <td className="p-4">{v.year}</td>
