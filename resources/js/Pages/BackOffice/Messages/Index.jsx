@@ -1,18 +1,26 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, router } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
+import MessageFilterBar from "@/Components/MessageFilterBar";
 
-export default function Index({ auth, messages }) {
+export default function Index({ auth, messages, filters }) {
     const handleStatusChange = (id, newStatus) => {
         router.put(route('admin.messages.update-status', id), { status: newStatus }, { preserveScroll: true });
+    };
+
+    const handleFilterChange = (newFilters) => {
+        router.get(route('admin.messages.index'), newFilters, { preserveState: true, replace: true });
     };
 
     return (
         <AuthenticatedLayout user={auth.user} header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Leads y Mensajes</h2>}>
             <Head title="Mensajes de Contacto" />
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 overflow-x-auto">
+                <div className="max-w-[95%] mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                        
+                        <MessageFilterBar onFilterChange={handleFilterChange} currentFilters={filters || {}} />
+
+                        <div className="overflow-x-auto">
                             <table className="min-w-full text-left text-sm whitespace-nowrap">
                                 <thead className="uppercase tracking-wider border-b-2 border-gray-600 bg-gray-50 text-xs">
                                     <tr>
@@ -34,17 +42,12 @@ export default function Index({ auth, messages }) {
                                             <td className="px-6 py-4 text-blue-600 font-semibold">
                                                 {msg.vehicle ? `${msg.vehicle.car_model.brand.name} ${msg.vehicle.car_model.name}` : 'Vehículo borrado'}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-normal max-w-xs">
-                                                <p className="text-gray-600 italic text-xs">"{msg.message}"</p>
-                                            </td>
+                                            <td className="px-6 py-4 whitespace-normal max-w-xs text-xs italic text-gray-600">"{msg.message}"</td>
                                             <td className="px-6 py-4">
                                                 <select 
                                                     value={msg.status} 
                                                     onChange={(e) => handleStatusChange(msg.id, e.target.value)}
-                                                    className={`text-xs font-bold rounded shadow-sm ${
-                                                        msg.status === 'Pendiente' ? 'bg-red-100 text-red-800' : 
-                                                        msg.status === 'Contactado' ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-600'
-                                                    }`}
+                                                    className={`text-xs font-bold rounded shadow-sm ${msg.status === 'Pendiente' ? 'bg-red-100 text-red-800' : msg.status === 'Contactado' ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-600'}`}
                                                 >
                                                     <option value="Pendiente">Pendiente</option>
                                                     <option value="Contactado">Contactado</option>
@@ -53,11 +56,16 @@ export default function Index({ auth, messages }) {
                                             </td>
                                         </tr>
                                     ))}
-                                    {messages.data.length === 0 && (
-                                        <tr><td colSpan="5" className="text-center py-6 text-gray-500">No hay mensajes aún.</td></tr>
-                                    )}
                                 </tbody>
                             </table>
+                        </div>
+
+                        {/* Paginación */}
+                        <div className="mt-6 flex justify-center gap-1">
+                            {messages.links.map((link, i) => (
+                                <Link key={i} href={link.url || '#'} dangerouslySetInnerHTML={{ __html: link.label }}
+                                    className={`px-4 py-2 border rounded text-sm ${link.active ? 'bg-blue-800 text-white font-bold' : 'bg-white hover:bg-gray-100'}`} />
+                            ))}
                         </div>
                     </div>
                 </div>
