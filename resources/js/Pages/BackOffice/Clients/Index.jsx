@@ -1,6 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
-import GlobalSearch from "@/Components/GlobalSearch";
 
 export default function Index({ auth, clients }) {
     const handleDelete = (id) => {
@@ -19,7 +18,7 @@ export default function Index({ auth, clients }) {
                             <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
                                 <h3 className="text-lg font-medium">Listado de Clientes</h3>
                                 <div className="flex items-center gap-4">
-                                    <GlobalSearch />
+                                    
                                     <Link href={route("admin.clients.create")} className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                         + Registrar Cliente
                                     </Link>
