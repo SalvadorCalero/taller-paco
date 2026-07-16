@@ -11,22 +11,34 @@ use Inertia\Inertia;
 
 class ClientVehicleController extends Controller
 {
-    public function index()
-    {
-        // Traemos las relaciones: el cliente y el modelo de coche (con su marca)
-        $vehicles = ClientVehicle::with(['client', 'carModel.brand'])->latest()->paginate(10);
+    public function index(Request $request)
+{
+    $query = ClientVehicle::with(['client', 'carModel.brand']);
 
-        return Inertia::render('BackOffice/ClientVehicles/Index', [
-            'vehicles' => $vehicles
-        ]);
-    }
+    $query->when($request->license_plate, fn($q, $v) => $q->where('license_plate', 'like', "%{$v}%"))
+          ->when($request->vin, fn($q, $v) => $q->where('vin', 'like', "%{$v}%"))
+          ->when($request->color, fn($q, $v) => $q->where('color', 'like', "%{$v}%"))
+          ->when($request->model_name, function($q, $v) {
+              $q->whereHas('carModel', fn($query) => $query->where('name', 'like', "%{$v}%"));
+          })
+          ->when($request->client_name, function($q, $v) {
+              $q->whereHas('client', fn($query) => 
+                  $query->where('first_name', 'like', "%{$v}%")->orWhere('last_name', 'like', "%{$v}%")
+              );
+          });
+
+    return Inertia::render('BackOffice/ClientVehicles/Index', [
+        'vehicles' => $query->latest()->paginate(10)->withQueryString(),
+        'filters' => $request->only(['license_plate', 'vin', 'client_name', 'model_name', 'color'])
+    ]);
+}
 
     public function create(Request $request)
     {
         // Traemos clientes y modelos de coches para los desplegables (<select>)
         $clients = Client::select('id', 'first_name', 'last_name', 'dni_nie')->get();
         $carModels = CarModel::with('brand')->get();
-        
+
         $preselectedClientId = $request->query('client_id', '');
 
         return Inertia::render('BackOffice/ClientVehicles/Create', [
@@ -62,7 +74,7 @@ class ClientVehicleController extends Controller
     public function edit(string $id)
     {
         $vehicle = ClientVehicle::findOrFail($id);
-        
+
         // Necesitamos las listas para los desplegables igual que en la creación
         $clients = Client::select('id', 'first_name', 'last_name', 'dni_nie')->get();
         $carModels = CarModel::with('brand')->get();

@@ -14,7 +14,7 @@ export default function Index({ auth, vehicles }) {
     return (
         <AuthenticatedLayout user={auth.user} header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Inventario</h2>}>
             <Head title="Inventario" />
-            <div className="py-12 px-4 w-full">
+            <div className="py-12 px-4 max-w-[95%] mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white p-6 shadow-sm sm:rounded-lg w-full">
                     <div className="flex justify-between items-center mb-6">
                         <h3 className="text-lg font-medium">Listado de Vehículos</h3>
