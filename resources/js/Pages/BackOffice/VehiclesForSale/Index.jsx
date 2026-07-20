@@ -11,6 +11,12 @@ export default function Index({ auth, vehicles }) {
         });
     };
 
+    const handleDelete = (id) => {
+        if (confirm("¿Seguro que deseas eliminar este vehículo del inventario?")) {
+            router.delete(route("admin.vehicles-for-sale.destroy", id));
+        }
+    };
+
     return (
         <AuthenticatedLayout user={auth.user} header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Inventario</h2>}>
             <Head title="Inventario" />
@@ -18,6 +24,12 @@ export default function Index({ auth, vehicles }) {
                 <div className="bg-white p-6 shadow-sm sm:rounded-lg w-full">
                     <div className="flex justify-between items-center mb-6">
                         <h3 className="text-lg font-medium">Listado de Vehículos</h3>
+                        <Link 
+                            href={route("admin.vehicles-for-sale.create")} 
+                            className="bg-blue-800 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition text-sm"
+                        >
+                            + Registrar Vehículo
+                        </Link>
                     </div>
 
                     <FilterBar onFilterChange={handleFilterChange} />
@@ -34,6 +46,7 @@ export default function Index({ auth, vehicles }) {
                                     <th className="px-6 py-4">Combustible</th>
                                     <th className="px-6 py-4">Precio</th>
                                     <th className="px-6 py-4">Estado</th>
+                                    <th className="px-6 py-4">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,8 +72,29 @@ export default function Index({ auth, vehicles }) {
                                         <td className="p-4">{v.fuel_type}</td>
                                         <td className="p-4">{v.price} €</td>
                                         <td className="p-4">{v.status}</td>
+                                        <td className="p-4 whitespace-nowrap">
+                                            <Link 
+                                                href={route("admin.vehicles-for-sale.edit", v.id)} 
+                                                className="text-blue-600 hover:underline font-semibold mr-3 text-sm"
+                                            >
+                                                Editar
+                                            </Link>
+                                            <button 
+                                                onClick={() => handleDelete(v.id)} 
+                                                className="text-red-600 hover:underline font-semibold text-xs"
+                                            >
+                                                Eliminar
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
+                                {vehicles.data.length === 0 && (
+                                    <tr>
+                                        <td colSpan="9" className="text-center py-10 text-gray-500 italic">
+                                            No hay vehículos registrados en este inventario.
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>
